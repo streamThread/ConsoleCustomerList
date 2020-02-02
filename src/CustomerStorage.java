@@ -1,3 +1,5 @@
+import MyExeptions.MyExeptions.*;
+
 import java.util.HashMap;
 
 
@@ -7,20 +9,20 @@ public class CustomerStorage {
         storage = new HashMap<>();
     }
 
-    public void addCustomer(String data) throws IllegalArgumentException {
+    public void addCustomer(String data) throws RuntimeException {
         String[] components = data.split("\\s+");
         if (components.length != 4) {
             throw new IllegalArgumentException("Invalid argument format. Correct format: " +
                     "\nВасилий Петров vasily.petrov@gmail.com +79215637722");
         }
         if (!components[0].toLowerCase().matches("^[а-я]+$") && !components[1].toLowerCase().matches("^[а-я]+$")) {
-            throw new IllegalArgumentException("Invalid input name's format. Correct format: Василий Петров");
+            throw new NotValidNameException();
         }
         if (!components[2].toLowerCase().matches(".+@.+\\..+")) {
-            throw new IllegalArgumentException("Invalid input e'mail's format. Correct format: vasily.petrov@gmail.com");
+            throw new NotValidEmailException();
         }
         if (!components[3].matches("^\\+7\\d{10}$")) {
-            throw new IllegalArgumentException("Invalid input phone's format. Correct format: +79215637722");
+            throw new NotValidPhoneException();
         }
         String name = components[0] + " " + components[1];
         storage.put(name, new Customer(name, components[3], components[2]));

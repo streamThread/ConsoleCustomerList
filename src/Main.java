@@ -29,8 +29,8 @@ public class Main {
                 } else {
                     System.out.println((commandError));
                 }
-            } catch (IllegalArgumentException iAE) {
-                System.out.println(iAE.getMessage());
+            } catch (RuntimeException ex) {
+                System.out.println(ex.getMessage());
             }
 
         }
